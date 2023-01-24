@@ -1,9 +1,13 @@
 import { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { ImageGalleryItems, ImageGalleryImg } from './ImageGalleryItem.styled';
 import LargeImgModal from '../Modal/Modal';
 
 class ImageGalleryItem extends Component {
+  static propTypes = {
+    image: PropTypes.object.isRequired,
+  };
+
   state = {
     showModal: false,
     imgforModal: '',

@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Button, BtnWrap } from './Button.styled';
 
 export const LoadMoreBtn = ({ addPage }) => {
@@ -9,4 +9,8 @@ export const LoadMoreBtn = ({ addPage }) => {
       </Button>
     </BtnWrap>
   );
+};
+
+LoadMoreBtn.propTypes = {
+  addPage: PropTypes.func.isRequired,
 };

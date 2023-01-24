@@ -5,6 +5,7 @@ import { fetchImgByName } from './api';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { LoadMoreBtn } from './Button/Button';
 import { Loader } from './Loader/Loader';
+import toast, { Toaster } from 'react-hot-toast';
 
 class App extends Component {
   state = {
@@ -48,7 +49,9 @@ class App extends Component {
           totalHits: images.totalHits,
         });
       } catch (error) {
-        this.setState({ error: 'Something is wrong!' });
+        this.setState({
+          error: toast.error('Щось пішло не так! Перезагрузи сторінку'),
+        });
       } finally {
         this.setState({ isLoading: false });
       }
@@ -65,12 +68,16 @@ class App extends Component {
   };
 
   render() {
-    const { totalHits, isLoading } = this.state;
+    const { totalHits, isLoading, error } = this.state;
     const imagesParametrs = this.makeImgParametrs();
 
     return (
       <AppWrap>
         <Searchbar onSubmit={this.formSubmitHandler} />
+        {error !== null && (
+          <Toaster position="top-right" reverseOrder={false} />
+        )}
+
         <ImageGallery images={imagesParametrs} />
         {imagesParametrs.length > 11 && imagesParametrs.length <= totalHits && (
           <LoadMoreBtn addPage={this.onChangePageNumber} />
@@ -82,11 +89,3 @@ class App extends Component {
 }
 
 export default App;
-
-// fetchImg = async () => {
-//   const { imgName, page } = this.state;
-//   try {
-//     const fetchApi = await fetchImgByName(imgName, page);
-//     this.setState({ fetchApi });
-//   } catch (error) {}
-// };

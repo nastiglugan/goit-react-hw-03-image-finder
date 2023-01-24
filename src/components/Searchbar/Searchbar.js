@@ -7,6 +7,7 @@ import {
   SearchInput,
 } from './Searchbar.styled';
 import { FaSearch } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
 class Searchbar extends Component {
   static propTypes = {
@@ -25,7 +26,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.imgName.trim() === '') {
-      alert('Ти нічого не ввів в пошук!');
+      toast.error('Ти нічого не ввів в пошук!');
       return;
     }
     this.props.onSubmit(this.state);
@@ -36,6 +37,7 @@ class Searchbar extends Component {
   render() {
     return (
       <SearchbarWrap>
+        <Toaster position="top-right" reverseOrder={false} />
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchBtn type="submit">
             <FaSearch color="black" />
