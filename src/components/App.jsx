@@ -14,7 +14,7 @@ class App extends Component {
     fetchApi: [],
     error: null,
     isLoading: false,
-    totalHits: 0,
+    lastPage: 0,
   };
 
   formSubmitHandler = ({ imgName }) => {
@@ -46,7 +46,7 @@ class App extends Component {
 
         this.setState({
           fetchApi: [...prevImages, ...images.hits],
-          totalHits: images.totalHits,
+          lastPage: Math.ceil(images.totalHits / 12),
         });
       } catch (error) {
         this.setState({
@@ -68,7 +68,7 @@ class App extends Component {
   };
 
   render() {
-    const { totalHits, isLoading, error } = this.state;
+    const { lastPage, isLoading, error, page } = this.state;
     const imagesParametrs = this.makeImgParametrs();
 
     return (
@@ -79,7 +79,7 @@ class App extends Component {
         )}
 
         <ImageGallery images={imagesParametrs} />
-        {imagesParametrs.length > 11 && imagesParametrs.length <= totalHits && (
+        {imagesParametrs.length !== 0 && page < lastPage && (
           <LoadMoreBtn addPage={this.onChangePageNumber} />
         )}
         {isLoading && <Loader />}
