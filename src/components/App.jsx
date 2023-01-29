@@ -18,9 +18,7 @@ class App extends Component {
   };
 
   formSubmitHandler = ({ imgName }) => {
-    this.setState({ imgName });
-    this.setState({ page: 1 });
-    this.setState({ fetchApi: [] });
+    this.setState({ imgName, page: 1, fetchApi: [] });
   };
 
   onChangePageNumber = () => {
